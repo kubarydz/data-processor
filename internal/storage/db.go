@@ -1,6 +1,7 @@
 package storage
 
 import (
+	"context"
 	"os"
 
 	"go.mongodb.org/mongo-driver/mongo"
@@ -14,7 +15,7 @@ func ProvideCollection() (*mongo.Collection, error) {
 	if dsn == "" {
 		dsn = dsn_default
 	}
-	client, err := mongo.NewClient(options.Client().ApplyURI(dsn))
+	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI(dsn))
 	if err != nil {
 		return nil, err
 	}

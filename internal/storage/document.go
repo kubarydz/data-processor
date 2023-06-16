@@ -13,5 +13,8 @@ type userDocument struct {
 }
 
 func newUserDocument(user *user.User) *userDocument {
-	return &userDocument{}
+	return &userDocument{
+		Id:   user.Id,
+		Name: user.Name,
+	}
 }

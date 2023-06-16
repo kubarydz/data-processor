@@ -3,6 +3,7 @@ package user
 import (
 	"context"
 	"log"
+	"time"
 
 	"github.com/segmentio/kafka-go"
 )
@@ -34,12 +35,12 @@ func (s *Service) Run() {
 
 		log.Println("Received: ", string(msg.Key), string(msg.Value))
 
-		user := NewUser(string(msg.Key), string(msg.Value))
+		user := NewUser(string(msg.Key), string(msg.Value), time.Now())
 		err = s.repo.Save(ctx, user)
 		if err != nil {
 			log.Println("Failed to save user: ", err)
+		} else {
+			log.Println("New user saved")
 		}
-
 	}
-
 }
