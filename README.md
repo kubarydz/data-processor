@@ -23,3 +23,9 @@ go run cmd/generator/main.go
 ```
 go run cmd/app/main.go
 ```
+
+Things TODO/consider:
+- retry mechanisms
+- tracing
+- monitoring
+- automated testing
