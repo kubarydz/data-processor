@@ -2,6 +2,9 @@ package main
 
 import (
 	"log"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/kubarydz/data-processor/internal/domain/user"
 	"github.com/kubarydz/data-processor/internal/storage"
@@ -28,5 +31,12 @@ func main() {
 	userRepo := storage.ProvideRepository(collection)
 
 	userService := user.NewService(kafkaReader, userRepo)
-	userService.Run()
+
+	signalCh := make(chan os.Signal, 1)
+	signal.Notify(signalCh, syscall.SIGINT, syscall.SIGTERM)
+	go userService.Run(signalCh)
+	<-signalCh
+
+	log.Println("shutting down...")
+
 }
