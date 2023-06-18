@@ -15,6 +15,7 @@ func main() {
 		Topic:    "random-data",
 		Balancer: &kafka.LeastBytes{},
 	})
+	writer.AllowAutoTopicCreation = true
 
 	defer writer.Close()
 
