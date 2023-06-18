@@ -9,5 +9,5 @@ type User struct {
 }
 
 func NewUser(id, name string, tmpstmp time.Time) *User {
-	return &User{Id: id, Name: name}
+	return &User{Id: id, Name: name, Created: tmpstmp}
 }
